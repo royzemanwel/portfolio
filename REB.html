@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roiz Eman Bartolata</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blk: #000;
+      --wht: #fff;
+      --red: #E30613;
+      --gry: #111;
+      --gry2: #1A1A1A;
+      --gry3: #F5F5F5;
+      --gry4: #E5E5E5;
+      --muted: #767676;
+      --mutedW: rgba(255,255,255,.5);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--blk); color: var(--wht); overflow-x: hidden; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: var(--red); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px;
+      transition: background .3s, padding .3s;
+    }
+    nav.solid { background: #000; padding: 14px 48px; border-bottom: 1px solid #1a1a1a; }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: .08em;
+      color: var(--wht); text-decoration: none;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.55); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--wht); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; background: var(--blk);
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 0 48px 72px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-text {
+      position: absolute; top: 50%; left: -20px;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(200px, 28vw, 380px);
+      color: rgba(255,255,255,.03);
+      line-height: 1; pointer-events: none;
+      white-space: nowrap; user-select: none;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+      animation: slideIn .6s .1s both;
+    }
+    .hero-line { width: 40px; height: 2px; background: var(--red); }
+    .hero-eyebrow-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--red);
+    }
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 14rem);
+      line-height: .9; letter-spacing: .01em;
+      animation: slideIn .7s .2s both;
+    }
+    .hero-name .surname { display: block; color: var(--red); }
+
+    .hero-bottom {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-top: 40px;
+      animation: slideIn .7s .4s both;
+    }
+    .hero-desc {
+      max-width: 360px;
+      font-size: .95rem; line-height: 1.75;
+      color: rgba(255,255,255,.55); font-weight: 300;
+    }
+    .hero-stats { display: flex; gap: 0; }
+    .hstat {
+      padding: 0 32px; text-align: center;
+      border-left: 1px solid #222;
+    }
+    .hstat:first-child { border-left: none; padding-left: 0; }
+    .hstat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem; line-height: 1; color: var(--wht);
+    }
+    .hstat-num.red { color: var(--red); }
+    .hstat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .68rem; font-weight: 600;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--mutedW);
+    }
+
+    .hero-cta {
+      position: absolute; bottom: 72px; right: 48px;
+      display: flex; flex-direction: column; gap: 12px;
+      align-items: flex-end;
+      animation: slideIn .7s .5s both;
+    }
+    .btn-blk {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--wht); color: var(--blk);
+      padding: 14px 30px; border-radius: 2px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .btn-blk:hover { background: var(--red); color: var(--wht); transform: translateX(-4px); }
+    .btn-red {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--wht);
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 14px 30px; border-radius: 2px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color .2s, color .2s, transform .2s;
+    }
+    .btn-red:hover { border-color: var(--wht); transform: translateX(-4px); }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--red);
+      padding: 14px 48px;
+      display: flex; gap: 60px; align-items: center;
+      overflow: hidden; white-space: nowrap;
+    }
+    .strip-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: .14em;
+      color: var(--wht); flex-shrink: 0;
+    }
+    .strip-dot { color: rgba(255,255,255,.5); margin: 0 10px; }
+
+    /* ── NICHE SECTIONS ── */
+    .niche-section {
+      min-height: 100vh; position: relative;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+
+    /* NICHE 01 — dark */
+    .ns1 { background: var(--gry); }
+    .ns1-left {
+      padding: 100px 48px 100px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-right: 1px solid #222;
+    }
+    .ns1-right {
+      padding: 100px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 0;
+    }
+
+    /* NICHE 02 — light */
+    .ns2 { background: var(--wht); color: var(--blk); }
+    .ns2-left {
+      padding: 100px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--gry3); border-right: 1px solid var(--gry4);
+    }
+    .ns2-right {
+      padding: 100px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    /* NICHE 03 — dark */
+    .ns3 { background: var(--blk); }
+    .ns3-left {
+      padding: 100px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-right: 1px solid #1a1a1a;
+    }
+    .ns3-right {
+      padding: 100px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    /* Niche label */
+    .niche-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(7rem, 15vw, 13rem);
+      line-height: 1; letter-spacing: -.01em;
+      color: transparent;
+    }
+    .ns1 .niche-num { -webkit-text-stroke: 1px rgba(255,255,255,.12); }
+    .ns2 .niche-num { -webkit-text-stroke: 1px rgba(0,0,0,.1); }
+    .ns3 .niche-num { -webkit-text-stroke: 1px rgba(255,255,255,.08); }
+
+    .niche-tag-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .niche-tag-label .nt-line { width: 32px; height: 2px; flex-shrink: 0; }
+    .ns1 .niche-tag-label { color: var(--red); }
+    .ns1 .nt-line { background: var(--red); }
+    .ns2 .niche-tag-label { color: var(--red); }
+    .ns2 .nt-line { background: var(--red); }
+    .ns3 .niche-tag-label { color: var(--red); }
+    .ns3 .nt-line { background: var(--red); }
+
+    .niche-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1; letter-spacing: .02em;
+      margin-bottom: 24px;
+    }
+    .ns2 .niche-title { color: var(--blk); }
+
+    .niche-desc {
+      font-size: .95rem; line-height: 1.85;
+      font-weight: 300; max-width: 380px;
+      margin-bottom: 36px;
+    }
+    .ns1 .niche-desc { color: rgba(255,255,255,.55); }
+    .ns2 .niche-desc { color: #555; }
+    .ns3 .niche-desc { color: rgba(255,255,255,.5); }
+
+    /* Skill list */
+    .skill-list { display: flex; flex-direction: column; gap: 0; }
+    .skill-entry {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      transition: padding-left .25s;
+    }
+    .skill-entry:first-child { border-top: 1px solid; }
+    .skill-entry:hover { padding-left: 10px; }
+    .ns1 .skill-entry { border-color: #222; color: var(--wht); }
+    .ns1 .skill-entry:hover { color: var(--red); }
+    .ns2 .skill-entry { border-color: var(--gry4); color: var(--blk); }
+    .ns2 .skill-entry:hover { color: var(--red); }
+    .ns3 .skill-entry { border-color: #1a1a1a; color: var(--wht); }
+    .ns3 .skill-entry:hover { color: var(--red); }
+    .skill-arrow { font-size: .75rem; opacity: .3; transition: opacity .25s; }
+    .skill-entry:hover .skill-arrow { opacity: 1; }
+
+    /* Experience panel inside niche right */
+    .exp-panel { margin-top: 40px; }
+    .exp-panel-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 20px;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .exp-bullets li {
+      font-size: .88rem; line-height: 1.75;
+      padding-left: 20px; position: relative; font-weight: 300;
+    }
+    .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--red); font-size: .78rem; top: 3px; }
+    .ns1 .exp-bullets li { color: rgba(255,255,255,.55); }
+    .ns2 .exp-bullets li { color: #555; }
+    .ns3 .exp-bullets li { color: rgba(255,255,255,.5); }
+
+    /* Niche icon */
+    .niche-icon-wrap {
+      font-size: 3.5rem; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+
+    /* ── EXPERIENCE SECTION ── */
+    #experience { background: var(--wht); color: var(--blk); padding: 120px 48px; }
+    .exp-header { margin-bottom: 80px; }
+    .exp-header .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--red); display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    }
+    .exp-header .eyebrow span { width: 36px; height: 2px; background: var(--red); display: inline-block; }
+    .exp-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: .95; letter-spacing: .02em; color: var(--blk);
+    }
+
+    .exp-grid { display: flex; flex-direction: column; }
+    .exp-row {
+      display: grid; grid-template-columns: 280px 1fr;
+      border-top: 1px solid var(--gry4); padding: 52px 0;
+      gap: 60px;
+    }
+    .exp-row:last-child { border-bottom: 1px solid var(--gry4); }
+    .exp-left {}
+    .exp-role-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; letter-spacing: .04em; color: var(--blk);
+      line-height: 1.1; margin-bottom: 14px;
+    }
+    .exp-badge {
+      display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      padding: 4px 12px; border: 1px solid var(--red);
+      color: var(--red);
+    }
+    .exp-right {}
+    .exp-main-desc {
+      font-size: .95rem; line-height: 1.8; color: #444;
+      font-weight: 300; margin-bottom: 28px; max-width: 540px;
+    }
+    .exp-detail-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .edl-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .83rem; color: #666; line-height: 1.6; font-weight: 400;
+    }
+    .edl-item::before { content: '—'; color: var(--red); flex-shrink: 0; font-size: .75rem; padding-top: 2px; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--blk); padding: 0; min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; }
+    .contact-left {
+      background: var(--red); padding: 100px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contact-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: .95; color: var(--wht); margin-bottom: 28px;
+    }
+    .contact-left p {
+      font-size: .95rem; line-height: 1.8; color: rgba(255,255,255,.75);
+      font-weight: 300; max-width: 320px; margin-bottom: 48px;
+    }
+    .contact-channels { display: flex; flex-direction: column; gap: 16px; }
+    .channel-btn {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 28px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--wht); text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .95rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      transition: background .2s, transform .2s;
+    }
+    .channel-btn:hover { background: rgba(255,255,255,.22); transform: translateX(6px); }
+    .channel-btn svg { flex-shrink: 0; }
+    .channel-detail { display: flex; flex-direction: column; gap: 2px; }
+    .channel-label { font-size: .6rem; letter-spacing: .2em; color: rgba(255,255,255,.5); }
+    .channel-val { font-size: .9rem; font-weight: 700; }
+
+    .contact-right {
+      background: var(--gry); padding: 100px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contact-right h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem; letter-spacing: .04em;
+      color: var(--wht); margin-bottom: 12px;
+    }
+    .contact-right p { font-size: .88rem; color: var(--mutedW); line-height: 1.75; margin-bottom: 36px; font-weight: 300; }
+    .cv-download {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--wht); color: var(--blk);
+      padding: 18px 36px; border-radius: 2px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .85rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      text-decoration: none; width: fit-content;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .cv-download:hover { background: var(--red); color: var(--wht); transform: translateY(-3px); }
+
+    .contact-info-list { margin-top: 56px; display: flex; flex-direction: column; gap: 20px; }
+    .cil-item { display: flex; align-items: center; gap: 14px; }
+    .cil-icon { width: 36px; height: 36px; border: 1px solid #2a2a2a; border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cil-text { font-size: .83rem; color: var(--mutedW); }
+    .cil-text strong { display: block; color: var(--wht); font-size: .9rem; margin-bottom: 2px; font-weight: 500; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--blk); border-top: 1px solid #1a1a1a;
+      padding: 24px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: .08em; color: var(--wht);
+    }
+    .footer-name span { color: var(--red); }
+    .footer-note { font-size: .72rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.up { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal-left.up { opacity: 1; transform: translateX(0); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.solid { padding: 12px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 0 24px 60px; }
+      .hero-bg-text { font-size: 120px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .hero-cta { position: static; align-items: flex-start; margin-top: 24px; flex-direction: row; flex-wrap: wrap; }
+      .niche-section { grid-template-columns: 1fr; min-height: auto; }
+      .ns1-left,.ns1-right,.ns2-left,.ns2-right,.ns3-left,.ns3-right { padding: 64px 24px; border: none; }
+      .ns2-left { border-bottom: 1px solid var(--gry4); }
+      .exp-row { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+      .exp-detail-list { grid-template-columns: 1fr; }
+      #experience { padding: 80px 24px; }
+      #contact { grid-template-columns: 1fr; }
+      .contact-left,.contact-right { padding: 64px 24px; }
+      .strip { padding: 14px 24px; }
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">REB<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#niche1">Real Estate</a></li>
+    <li><a href="#niche2">Management</a></li>
+    <li><a href="#niche3">Technology</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">REB</div>
+
+  <div class="hero-eyebrow">
+    <div class="hero-line"></div>
+    <span class="hero-eyebrow-text">Multi-Disciplinary Professional · Philippines</span>
+  </div>
+
+  <h1 class="hero-name">
+    Roiz Eman
+    <span class="surname">Bartolata</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      Three distinct niches. Three years of real-world experience. One professional built for complex, fast-moving environments.
+    </p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num red">3</div>
+        <div class="hstat-label">Niches</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">3</div>
+        <div class="hstat-label">Years</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">3</div>
+        <div class="hstat-label">Roles</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#contact" class="btn-blk">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Get in Touch
+    </a>
+    <a href="RoizEman_Bartolata_Resume_2026.pdf" download class="btn-red">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV
+    </a>
+  </div>
+</section>
+
+<!-- RED STRIP -->
+<div class="strip">
+  <span class="strip-item">Real Estate Operations <span class="strip-dot">·</span></span>
+  <span class="strip-item">People & Team Management <span class="strip-dot">·</span></span>
+  <span class="strip-item">Technology & IT Support <span class="strip-dot">·</span></span>
+  <span class="strip-item">Transaction Coordination <span class="strip-dot">·</span></span>
+  <span class="strip-item">CRM Administration <span class="strip-dot">·</span></span>
+  <span class="strip-item">Team Leadership <span class="strip-dot">·</span></span>
+  <span class="strip-item">KPI Development <span class="strip-dot">·</span></span>
+  <span class="strip-item">Active Directory <span class="strip-dot">·</span></span>
+</div>
+
+<!-- ─────────── NICHE 01 ─────────── -->
+<div class="niche-section ns1" id="niche1">
+  <div class="ns1-left reveal-left">
+    <div class="niche-num">01</div>
+    <div class="niche-tag-label"><span class="nt-line"></span> Niche One</div>
+    <h2 class="niche-title">Real Estate<br>Operations</h2>
+    <p class="niche-desc">
+      Specializing in cash acquisition workflows — from first contact with motivated sellers all the way through to closing. Experienced in ARV analysis, competitive pricing strategy, and full transaction compliance across multiple simultaneous deals.
+    </p>
+    <div class="skill-list">
+      <div class="skill-entry">Transaction Coordination (A–Z) <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Comparative Market Analysis (CMA) <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">MLS Listing Management <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Escrow & Title Coordination <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Purchase Agreement Review <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">REI BlackBook CRM <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Compliance & Risk Management <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Skip Tracing & Lead Qualification <span class="skill-arrow">→</span></div>
+    </div>
+  </div>
+  <div class="ns1-right reveal">
+    <div class="niche-icon-wrap">🏠</div>
+    <div class="exp-panel">
+      <div class="exp-panel-title">What I've Done</div>
+      <ul class="exp-bullets">
+        <li>Managed end-to-end real estate transactions from acquisition to closing, ensuring full compliance and document accuracy across multiple simultaneous deals.</li>
+        <li>Conducted Comparative Market Analyses and property comping to derive ARV and support competitive cash offer pricing decisions.</li>
+        <li>Drafted, reviewed, and executed purchase agreements using digital signature platforms, coordinating multi-department approvals to hit closing deadlines.</li>
+        <li>Administered full CRM pipelines in REI BlackBook — maintaining lead tracking, deal progression records, and data integrity across all active accounts.</li>
+        <li>Managed MLS listings and engaged with property leads to gather qualifying details, supporting the acquisitions pipeline and sales team efficiency.</li>
+        <li>Liaised with title companies to facilitate seamless closings, resolve title issues, and ensure all documentation met escrow requirements.</li>
+        <li>Applied skip tracing workflows to identify and reach motivated sellers, expanding the lead pool for acquisition analysis.</li>
+        <li>Maintained strict compliance on low-equity property deals — assessing lien exposure, short-sale risk, and title search priorities before acquisition decisions.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── NICHE 02 ─────────── -->
+<div class="niche-section ns2" id="niche2">
+  <div class="ns2-left reveal-left">
+    <div class="niche-icon-wrap">👥</div>
+    <div class="exp-panel">
+      <div class="exp-panel-title">What I've Done</div>
+      <ul class="exp-bullets">
+        <li>Led, onboarded, and trained team members on CRM workflows and acquisition processes — setting clear standards and performance benchmarks from day one.</li>
+        <li>Developed and monitored KPIs to drive pipeline accountability, identifying performance gaps and coaching team members toward consistent output targets.</li>
+        <li>Built and maintained structured EOD reporting systems to give leadership real-time visibility into team activity, deal progression, and individual performance.</li>
+        <li>Managed complex multi-location staff rosters and shift scheduling, ensuring consistent and compliant service coverage for NDIS participants.</li>
+        <li>Applied SCHADS Award guidelines to ensure legally compliant workforce management — including penalty rates, break entitlements, and overtime tracking.</li>
+        <li>Served as the primary point of contact for participants, families, and external stakeholders regarding service updates and support coordination.</li>
+        <li>Collaborated with care coordinators to align staffing resources with participant support plans and evolving care needs.</li>
+        <li>Resolved scheduling conflicts proactively to maintain real-time roster accuracy and prevent coverage gaps across multiple locations.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ns2-right reveal">
+    <div class="niche-num">02</div>
+    <div class="niche-tag-label"><span class="nt-line"></span> Niche Two</div>
+    <h2 class="niche-title">People &<br>Team Management</h2>
+    <p class="niche-desc">
+      From building acquisition teams to coordinating complex multi-location workforces — experienced in both performance-driven team leadership and compassionate people management in high-stakes environments.
+    </p>
+    <div class="skill-list">
+      <div class="skill-entry">Team Leadership & Training <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">KPI Development & Monitoring <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Performance Management <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">EOD Reporting & Dashboards <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">NDIS Support Coordination <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Workforce Scheduling (SCHADS) <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Stakeholder Communication <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Conflict Resolution <span class="skill-arrow">→</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── NICHE 03 ─────────── -->
+<div class="niche-section ns3" id="niche3">
+  <div class="ns3-left reveal-left">
+    <div class="niche-num">03</div>
+    <div class="niche-tag-label"><span class="nt-line"></span> Niche Three</div>
+    <h2 class="niche-title">Technology<br>& IT Support</h2>
+    <p class="niche-desc">
+      Hands-on technical foundation in Windows enterprise environments — from resolving day-to-day user issues to managing identity infrastructure. Built a track record of high SLA compliance and knowledge-sharing that reduced repeat incidents.
+    </p>
+    <div class="skill-list">
+      <div class="skill-entry">Active Directory Administration <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Level 1 / Level 2 Desktop Support <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">ServiceNow & iSmart Ticketing <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Hardware & Peripheral Configuration <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">SLA Incident Management <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">IT Asset Inventory Management <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Knowledge Base Authoring <span class="skill-arrow">→</span></div>
+      <div class="skill-entry">Windows OS & Network Troubleshooting <span class="skill-arrow">→</span></div>
+    </div>
+  </div>
+  <div class="ns3-right reveal">
+    <div class="niche-icon-wrap">💻</div>
+    <div class="exp-panel">
+      <div class="exp-panel-title">What I've Done</div>
+      <ul class="exp-bullets">
+        <li>Delivered onsite and remote Level 1/2 technical support across Windows-based environments, resolving hardware, software, and network issues consistently within defined SLA targets.</li>
+        <li>Managed Active Directory user lifecycle — provisioning, de-provisioning, group policy updates, and password resets — aligned with IT security protocols.</li>
+        <li>Installed, configured, and maintained hardware, software, and peripherals for end users, ensuring minimal downtime and high user satisfaction scores.</li>
+        <li>Logged, tracked, and resolved incidents using ServiceNow and iSmart ticketing systems, maintaining full documentation trails for each case.</li>
+        <li>Authored knowledge base articles to document recurring issues and resolution paths, reducing repeat incident volume across the team.</li>
+        <li>Maintained accurate IT asset inventory and documented troubleshooting procedures to support team efficiency and audit readiness.</li>
+        <li>Collaborated with the IT team to escalate complex issues to Level 3 support, ensuring minimal business disruption and fast resolution cycles.</li>
+        <li>Provided clear technical communication to non-technical users — translating complex issues into actionable steps with patience and clarity.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── EXPERIENCE ─────────── -->
+<section id="experience">
+  <div class="exp-header reveal">
+    <div class="eyebrow"><span></span> Full Work History</div>
+    <h2>THREE ROLES.<br>ONE STORY.</h2>
+  </div>
+  <div class="exp-grid">
+
+    <div class="exp-row reveal">
+      <div class="exp-left">
+        <div class="exp-role-title">Transaction Coordinator / Department Team Leader</div>
+        <div class="exp-badge">Real Estate Operations</div>
+      </div>
+      <div class="exp-right">
+        <p class="exp-main-desc">
+          Led acquisition operations from front-end lead management to back-end closing coordination. Simultaneously managed a team while handling complex multi-deal transaction pipelines with full compliance accountability.
+        </p>
+        <div class="exp-detail-list">
+          <div class="edl-item">End-to-end transaction management</div>
+          <div class="edl-item">CMA & ARV analysis</div>
+          <div class="edl-item">Escrow & title company liaison</div>
+          <div class="edl-item">REI BlackBook CRM oversight</div>
+          <div class="edl-item">Purchase agreement drafting</div>
+          <div class="edl-item">KPI setup & team performance tracking</div>
+          <div class="edl-item">MLS listing management</div>
+          <div class="edl-item">Team onboarding & workflow training</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-row reveal">
+      <div class="exp-left">
+        <div class="exp-role-title">Roster Coordinator & Client Services Officer</div>
+        <div class="exp-badge">People & Team Management</div>
+      </div>
+      <div class="exp-right">
+        <p class="exp-main-desc">
+          Managed a complex, multi-location workforce scheduling operation for an NDIS-registered provider — balancing legal compliance, participant care continuity, and real-time roster accuracy under a people-first framework.
+        </p>
+        <div class="exp-detail-list">
+          <div class="edl-item">Multi-location roster management</div>
+          <div class="edl-item">SCHADS Award compliance</div>
+          <div class="edl-item">NDIS participant coordination</div>
+          <div class="edl-item">Shift conflict resolution</div>
+          <div class="edl-item">Stakeholder & family communication</div>
+          <div class="edl-item">Scheduling platform administration</div>
+          <div class="edl-item">Support plan alignment</div>
+          <div class="edl-item">Workforce compliance tracking</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-row reveal">
+      <div class="exp-left">
+        <div class="exp-role-title">Desktop Support Engineer</div>
+        <div class="exp-badge">Technology & IT Support</div>
+      </div>
+      <div class="exp-right">
+        <p class="exp-main-desc">
+          Provided first and second-line technical support in a structured enterprise Windows environment — building a reputation for fast resolution, thorough documentation, and clear communication with non-technical stakeholders.
+        </p>
+        <div class="exp-detail-list">
+          <div class="edl-item">Level 1/2 Windows support</div>
+          <div class="edl-item">Active Directory administration</div>
+          <div class="edl-item">ServiceNow & iSmart incident tracking</div>
+          <div class="edl-item">SLA compliance & reporting</div>
+          <div class="edl-item">Hardware installation & config</div>
+          <div class="edl-item">IT asset inventory management</div>
+          <div class="edl-item">Knowledge base authoring</div>
+          <div class="edl-item">L3 escalation coordination</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────── CONTACT ─────────── -->
+<section id="contact">
+  <div class="contact-left reveal-left">
+    <h2>LET'S<br>TALK.</h2>
+    <p>Open to new opportunities across real estate operations, team leadership, or IT support. Reach out — I respond fast.</p>
+    <div class="contact-channels">
+      <a href="mailto:royzemanwel@gmail.com" class="channel-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div class="channel-detail">
+          <span class="channel-label">Email</span>
+          <span class="channel-val">royzemanwel@gmail.com</span>
+        </div>
+      </a>
+      <a href="tel:+639926209324" class="channel-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.47 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div class="channel-detail">
+          <span class="channel-label">Phone / WhatsApp</span>
+          <span class="channel-val">+63 992 620 9324</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-right reveal">
+    <h3>DOWNLOAD<br>MY CV</h3>
+    <p>Get the full picture — all three niches, all three roles, with complete details on responsibilities and tools used.</p>
+    <a href="RoizEman_Bartolata_Resume_2026.pdf" download class="cv-download">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV
+    </a>
+
+    <div class="contact-info-list">
+      <div class="cil-item">
+        <div class="cil-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#767676" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 13 8 13s8-7.75 8-13a8 8 0 0 0-8-8z"/></svg>
+        </div>
+        <div class="cil-text"><strong>Quezon City, Philippines</strong>Open to remote & hybrid roles</div>
+      </div>
+      <div class="cil-item">
+        <div class="cil-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#767676" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="cil-text"><strong>BS Information Technology</strong>Bicol University – Polangui, 2023</div>
+      </div>
+      <div class="cil-item">
+        <div class="cil-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#767676" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="cil-text"><strong>3 Years Mixed Experience</strong>Real Estate · Management · IT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Roiz Eman <span>Bartolata</span></span>
+  <span class="footer-note">© 2026 · Built with Purpose</span>
+</footer>
+
+<script>
+  // Nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60), { passive: true });
+
+  // Reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
